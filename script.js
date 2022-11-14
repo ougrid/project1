@@ -10,14 +10,13 @@ function addSequence() {
 }
 
 function showSequence() {
-  
-  sequence.forEach((element) => {
+  sequence.forEach((element, index) => {
     console.log(`show: ${element}`)
     $(`#${element}`).text("THIS")
-    // setTimeout(element => $(`#${element}`).addClass("opacity-50"), 2000)
-    // $(`#${element}`).removeClass("opacity-50")
-    $(`#${element}`).addClass("opacity-50")
-    // TO DO: make it waits for a while then remove the class added!
+    setTimeout(() => $(`#${element}`).addClass("opacity-50"), (index) * 500)
+    setTimeout(() => $(`#${element}`).removeClass("opacity-50"), (index + 1) * 500)
+    setTimeout(() => $(`#${element}`).addClass("opacity-100"), (index + 1) * 500)
+    setTimeout(() => $(`#${element}`).removeClass("opacity-100"), (index + 1.5) * 500)
   })
 
   listenToPlayer()
@@ -26,12 +25,12 @@ function showSequence() {
 function listenToPlayer() {
   $("#green, #red, #yellow, #blue").on("click", e => {
     e.preventDefault()
-    console.log(e.target)
+    console.log(`select: ${e.target.id}`)
+
+    playersSequence.push(e.target.id)
 
     if (playersSequence.length < sequence.length) {
-      playersSequence.push(e.target.id)
-      console.log(e.target.id);
-      console.log(`playersSequence: ${playersSequence}`)
+      // console.log(`playersSequence: ${playersSequence}`)
     } else if (playersSequence.length === sequence.length) {
       let matchCheck = true
       playersSequence.forEach((element, index) => {
@@ -39,9 +38,10 @@ function listenToPlayer() {
           matchCheck = true
         } else {
           matchCheck = false
-          console.log('WRONG! Press "reset" to try again')
           return 
         }
+        console.log(`matchCheck: ${matchCheck}`)
+        return
       })
     } 
     })
@@ -52,8 +52,12 @@ function listenToPlayer() {
 
 $("#start").on("click", e => {   
   e.preventDefault()
-  sequence = []
   addSequence()
   showSequence()
 })
 
+
+
+// Resources:
+// https://stackoverflow.com/questions/16344354/how-to-make-blinking-flashing-text-with-css-3
+// https://travishorn.com/delaying-foreach-iterations-2ebd4b29ad30
