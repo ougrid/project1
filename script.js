@@ -5,11 +5,13 @@ let sequence = []
 let playersSequence = []
 
 function addSequence() {
+  console.log("call addSequence()");
   sequence.push(colorBtns[Math.floor(Math.random() * colorBtns.length)])
   console.log(sequence)
 }
 
 function showSequence() {
+  console.log("call showSequence()");
   sequence.forEach((element, index) => {
     console.log(`show: ${element}`)
     $(`#${element}`).text("THIS")
@@ -18,42 +20,50 @@ function showSequence() {
     setTimeout(() => $(`#${element}`).addClass("opacity-100"), (index + 1) * 500)
     setTimeout(() => $(`#${element}`).removeClass("opacity-100"), (index + 1.5) * 500)
   })
-
-  listenToPlayer()
 }
 
 function listenToPlayer() {
+  console.log("call listenToPlayer()");
   $("#green, #red, #yellow, #blue").on("click", e => {
     e.preventDefault()
     console.log(`select: ${e.target.id}`)
-
     playersSequence.push(e.target.id)
-
-    if (playersSequence.length < sequence.length) {
-      // console.log(`playersSequence: ${playersSequence}`)
-    } else if (playersSequence.length === sequence.length) {
-      let matchCheck = true
-      playersSequence.forEach((element, index) => {
-        if (element === sequence[index]) {
-          matchCheck = true
-        } else {
-          matchCheck = false
-          return 
-        }
-        console.log(`matchCheck: ${matchCheck}`)
-        return
-      })
-    } 
-    })
+    console.log(`playersSequence: ${playersSequence}`)
+    if (playersSequence.length === sequence.length) {
+      matchCheck()
+    }
+  })
 }
 
-
+function matchCheck() {
+  console.log("call matchCheck()")
+  let match = true
+  playersSequence.forEach((element, index) => {
+    if (element === sequence[index]) {
+      match = true
+    } else {
+      match = false
+      return
+    } 
+  })
+  console.log(`match: ${match}`)
+  if (match === true) {
+    addSequence()
+    showSequence()
+    playersSequence = []
+    console.log(`playersSequence: ${playersSequence}`)
+  } else {
+    console.log("WRONG");
+    return
+  }  
+}
 
 
 $("#start").on("click", e => {   
   e.preventDefault()
   addSequence()
   showSequence()
+  listenToPlayer()
 })
 
 
