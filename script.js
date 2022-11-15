@@ -4,6 +4,33 @@ let sequence = []
 
 let playersSequence = []
 
+class Player {
+  constructor(username, password) {
+    this.username = username
+    this.password = password
+    this.highestScore = "0"
+  }
+
+  addUser = (inputUsername, inputPassword) => {
+    this.username = inputUsername
+    this.password = inputPassword
+  }
+
+  updateHighestScore = (inputHighestScore) => {
+    this.highestScore = inputHighestScore
+  }
+} 
+
+// TO DO: make fn: promptUserForInput
+const player1 = new Player(`${promptUserForInput()}`)
+const player2 = new Player("username2")
+
+$("#addPlayer").on("click", e => {
+  e.preventDefault()
+  prompt
+  player1.addUser()
+})
+
 // let setMaxScore = window.localStorage.setItem("maxScore", "0")
 
 // let getMaxScore = window.localStorage.getItem("maxScore")
@@ -140,6 +167,7 @@ gameInit()
 $(document).ready(function() {
   $("#score").text(window.localStorage.getItem("maxScore")) 
 })
+
 
 
 
