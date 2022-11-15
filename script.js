@@ -22,13 +22,17 @@ class Player {
 } 
 
 // TO DO: make fn: promptUserForInput
-const player1 = new Player(`${promptUserForInput()}`)
+const player1 = new Player("username1", "password1")
 const player2 = new Player("username2")
 
-$("#addPlayer").on("click", e => {
+$("#add-player").on("click", e => {
   e.preventDefault()
-  prompt
-  player1.addUser()
+  $(`#${e.target.id}`).addClass("opacity-50")
+  setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-50"), 250)
+  setTimeout(() => $(`#${e.target.id}`).addClass("opacity-100"), 500)
+  setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-100"), 1000)
+  let input1 = prompt("Type new player's username: ")
+  player1.addUser(input1)
 })
 
 // let setMaxScore = window.localStorage.setItem("maxScore", "0")
@@ -122,7 +126,7 @@ function timer() {
     
     $("#time").text(`${counter}`)
     if (counter <= 0) {
-      // Display a login box
+      // Display
       clearInterval(interval)
     }
     counter--
@@ -188,4 +192,5 @@ $(document).ready(function() {
 // https://stackoverflow.com/questions/3698200/window-onload-vs-document-ready
 // https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_countdown
 // https://stackoverflow.com/questions/3089475/how-can-i-create-a-5-second-countdown-timer-with-jquery-that-ends-with-a-login-p
+// https://codehs.com/tutorial/rachel/user-input-in-javascript
 // 
