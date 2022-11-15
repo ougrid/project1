@@ -10,6 +10,8 @@ function addSequence() {
   console.log(sequence)
 }
 
+
+
 function showSequence() {
   console.log("call showSequence()");
   sequence.forEach((element, index) => {
@@ -21,7 +23,7 @@ function showSequence() {
     setTimeout(() => $(`#${element}`).removeClass("opacity-100"), (index + 1.5) * 500)
   })
 }
-
+// TO DO: make buttons blink when player clicks
 function listenToPlayer() {
   console.log("call listenToPlayer()");
   $("#green, #red, #yellow, #blue").on("click", e => {
@@ -59,13 +61,26 @@ function matchCheck() {
   }  
 }
 
+function reset () {
+  $("reset").on("click", e => {
+    e.preventDefault
+    gameInit()
+  })
+}
 
-$("#start").on("click", e => {   
-  e.preventDefault()
-  addSequence()
-  showSequence()
-  listenToPlayer()
-})
+// To do: make 'start' stops listening when pressed 
+function gameInit () {
+  $("#start").on("click", e => {   
+    e.preventDefault()
+    sequence = []
+    playersSequence = [] 
+    addSequence()
+    showSequence()
+    listenToPlayer()
+  })
+}
+
+gameInit()
 
 
 
