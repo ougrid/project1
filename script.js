@@ -4,9 +4,9 @@ let sequence = []
 
 let playersSequence = []
 
-let setMaxScore = localStorage.setItem("maxScore", "0")
+// let setMaxScore = window.localStorage.setItem("maxScore", "0")
 
-let getMaxScore = localStorage.getItem("maxScore")
+// let getMaxScore = window.localStorage.getItem("maxScore")
 
 function addSequence() {
   console.log("call addSequence()");
@@ -65,25 +65,24 @@ function matchCheck() {
   }  
 }
 
-// let setMaxScore = localStorage.setItem("maxScore", "0")
+// let setMaxScore = window.localStorage.setItem("maxScore", "0")
 
-// let getMaxScore = localStorage.getItem("maxScore")
+// let getMaxScore = window.localStorage.getItem("maxScore")
 
 function logMax (match) {
   console.log("call logMax()")
   console.log(`playersSequence.length: ${playersSequence.length}`)
-  // if (match === true) {
-    if (playersSequence.length > Number(getMaxScore)) {
-      console.log(`compare: \n  playersSequence.length: ${playersSequence.length}, getMaxScore: ${getMaxScore}`)
-      localStorage.removeItem("maxScore")
-      console.log(localStorage)
-      localStorage.setItem("maxScore", `${playersSequence.length}`)
-      console.log(localStorage)
-      console.log(`updated maxScore: ${getMaxScore}`)
+    if (playersSequence.length > Number(window.localStorage.getItem("maxScore")) || playersSequence.length > 0) {
+      console.log(`compare: \n  playersSequence.length: ${playersSequence.length}, getMaxScore: ${window.localStorage.getItem("maxScore")}`)
+      // window.localStorage.removeItem("maxScore")
+      console.log(`before-update maxScore: ${window.localStorage.getItem("maxScore")}`)
+      window.localStorage.setItem("maxScore", `${playersSequence.length}`)
+      console.log(`updated maxScore: ${window.localStorage.getItem("maxScore")}`)
+      // console.log(`updated maxScore: ${getMaxScore}`)
       // $("#score").text(`${getMaxScore}`)
-      $("#score").text(localStorage.getItem("maxScore"))
+      $("#score").text(window.localStorage.getItem("maxScore"))
+      console.log(window.localStorage);
     }
-  // }
 }
 
 // TO DO: log "RESET" when pressed
@@ -97,10 +96,12 @@ function reset () {
 
 // To do: make 'start' stops listening when pressed 
 function gameInit () {
+  console.log(window.localStorage);
   $("#start").on("click", e => {   
     e.preventDefault()
     sequence = []
-    playersSequence = [] 
+    playersSequence = []
+    // $("#score").text(window.localStorage.getItem("maxScore")) 
     addSequence()
     showSequence()
     listenToPlayer()
@@ -108,6 +109,10 @@ function gameInit () {
 }
 
 gameInit()
+
+$(document).ready(function() {
+  $("#score").text(window.localStorage.getItem("maxScore")) 
+});
 
 
 
@@ -124,3 +129,5 @@ gameInit()
 // Resources:
 // https://stackoverflow.com/questions/16344354/how-to-make-blinking-flashing-text-with-css-3
 // https://travishorn.com/delaying-foreach-iterations-2ebd4b29ad30
+// https://www.byperth.com/2015/02/19/jquery-window-onload-%E0%B8%81%E0%B8%B1%E0%B8%9A-document-ready-%E0%B8%95%E0%B9%88%E0%B8%B2%E0%B8%87%E0%B8%81%E0%B8%B1%E0%B8%99%E0%B8%A2%E0%B8%B1%E0%B8%87%E0%B9%84%E0%B8%87/
+// https://stackoverflow.com/questions/3698200/window-onload-vs-document-ready
