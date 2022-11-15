@@ -72,7 +72,8 @@ function matchCheck() {
 function logMax (match) {
   console.log("call logMax()")
   console.log(`playersSequence.length: ${playersSequence.length}`)
-    if (playersSequence.length > Number(window.localStorage.getItem("maxScore")) || playersSequence.length > 0) {
+    // if (playersSequence.length > Number(window.localStorage.getItem("maxScore")) || playersSequence.length > 0) {
+    if (playersSequence.length > Number(window.localStorage.getItem("maxScore"))) {
       console.log(`compare: \n  playersSequence.length: ${playersSequence.length}, getMaxScore: ${window.localStorage.getItem("maxScore")}`)
       // window.localStorage.removeItem("maxScore")
       console.log(`before-update maxScore: ${window.localStorage.getItem("maxScore")}`)
