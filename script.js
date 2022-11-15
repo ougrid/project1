@@ -33,6 +33,12 @@ function listenToPlayer() {
     e.preventDefault()
     console.log(`target: ${e.target.id}`)
     playersSequence.push(e.target.id)
+
+    $(`#${e.target.id}`).addClass("opacity-50")
+    setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-50"), 250)
+    setTimeout(() => $(`#${e.target.id}`).addClass("opacity-100"), 500)
+    setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-100"), 1000)
+
     console.log(`playersSequence: [${playersSequence}]`)
     if (playersSequence.length === sequence.length) {
       matchCheck()
@@ -65,10 +71,6 @@ function matchCheck() {
   }  
 }
 
-// let setMaxScore = window.localStorage.setItem("maxScore", "0")
-
-// let getMaxScore = window.localStorage.getItem("maxScore")
-
 function logMax (match) {
   console.log("call logMax()")
   console.log(`playersSequence.length: ${playersSequence.length}`)
@@ -86,25 +88,49 @@ function logMax (match) {
     }
 }
 
+function timer() {
+  // Attempt3
+  let counter = 5
+  let interval = setInterval(function () {
+    
+    $("#time").text(`${counter}`)
+    if (counter <= 0) {
+      // Display a login box
+      clearInterval(interval)
+    }
+    counter--
+  }, 1000)
+  // addSequence()
+  // showSequence()
+}
+
 // TO DO: log "RESET" when pressed
-function reset () {
-  $("reset").on("click", e => {
+// function reset () {
+  $("#reset").on("click", e => {
     e.preventDefault
-    // console.log("RESET")
+    $(`#${e.target.id}`).addClass("opacity-50")
+    setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-50"), 250)
+    setTimeout(() => $(`#${e.target.id}`).addClass("opacity-100"), 500)
+    setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-100"), 1000)
+    console.log("RESET")
     gameInit()
   })
-}
+// }
 
 // To do: make 'start' stops listening when pressed 
 function gameInit () {
   console.log(window.localStorage);
   $("#start").on("click", e => {   
     e.preventDefault()
+    $(`#${e.target.id}`).addClass("opacity-50")
+    setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-50"), 250)
+    setTimeout(() => $(`#${e.target.id}`).addClass("opacity-100"), 500)
+    setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-100"), 1000)
     sequence = []
     playersSequence = []
-    // $("#score").text(window.localStorage.getItem("maxScore")) 
     addSequence()
     showSequence()
+    // timer()
     listenToPlayer()
   })
 }
@@ -113,7 +139,7 @@ gameInit()
 
 $(document).ready(function() {
   $("#score").text(window.localStorage.getItem("maxScore")) 
-});
+})
 
 
 
@@ -132,3 +158,6 @@ $(document).ready(function() {
 // https://travishorn.com/delaying-foreach-iterations-2ebd4b29ad30
 // https://www.byperth.com/2015/02/19/jquery-window-onload-%E0%B8%81%E0%B8%B1%E0%B8%9A-document-ready-%E0%B8%95%E0%B9%88%E0%B8%B2%E0%B8%87%E0%B8%81%E0%B8%B1%E0%B8%99%E0%B8%A2%E0%B8%B1%E0%B8%87%E0%B9%84%E0%B8%87/
 // https://stackoverflow.com/questions/3698200/window-onload-vs-document-ready
+// https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_countdown
+// https://stackoverflow.com/questions/3089475/how-can-i-create-a-5-second-countdown-timer-with-jquery-that-ends-with-a-login-p
+// 
