@@ -35,6 +35,7 @@ function listenToPlayer() {
   })
 }
 
+// TO DO: make it return fault rigth when it detects the first wrong element
 function matchCheck() {
   console.log("call matchCheck()")
   let match = true
