@@ -10,19 +10,21 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1 id="simon" class="text-center">Let's play Simon!</h1>
-  <h2 class="text-center p-3">Your highest score: <span id="score">00</span></h2>
-  <h2 class="text-center m-5">Time Left: <span id="time">00</span> s</h2>
-  <div class="container text-center">
-    <div class="row row-cols-2 m-5">
-      <div id="green" class="field border bg-success text-bg-dark tl">green</div>
-      <div id="red" class="field border bg-danger text-bg-dark tr">red</div>
-      <div id="yellow" class="field border bg-warning bl">yellow</div>
-      <div id="blue" class="field border bg-primary text-bg-dark br">blue</div>
+  <h1 id="simon" class="text-center m-3">Let's play Simon!</h1>
+  <h2 class="text-center m-2">Your highest score: <span id="score">00</span></h2>
+  <h2 class="text-center m-4">Time Left: <span id="time">00</span> s</h2>
+  <div class="container text-center color-wheel-parent">
+    <!-- <div class="row row-cols-2 m-5"> -->
+    <div class="color-wheel">
+      <div></div>
+      <div id="green" class="toprow field border bg-success text-bg-dark text tl">green</div>
+      <div id="red" class="toprow field border bg-danger text-bg-dark tr">red</div>
+      <div id="yellow" class="bottomrow field border bg-warning bl">yellow</div>
+      <div id="blue" class="bottomrow field border bg-primary text-bg-dark br">blue</div>
     </div>
   </div>
   
-  <div class="buttons">
+  <div class="buttons m-4">
     <button id="start" class="">Start</button>
     <button id="reset" class="">Reset</button>
     <button id="add-player" class="">Add New Player</button>

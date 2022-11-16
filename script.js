@@ -23,7 +23,7 @@ class Player {
 
 // TO DO: make fn: promptUserForInput
 const player1 = new Player("username1", "password1")
-const player2 = new Player("username2")
+const player2 = new Player("username2", "password2")
 
 $("#add-player").on("click", e => {
   e.preventDefault()
@@ -193,4 +193,5 @@ $(document).ready(function() {
 // https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_countdown
 // https://stackoverflow.com/questions/3089475/how-can-i-create-a-5-second-countdown-timer-with-jquery-that-ends-with-a-login-p
 // https://codehs.com/tutorial/rachel/user-input-in-javascript
+// https://www.sitepoint.com/delay-sleep-pause-wait/
 // 
