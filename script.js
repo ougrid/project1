@@ -105,7 +105,8 @@ function matchCheck() {
     playersSequence = []
     console.log(`playersSequence: ${playersSequence}`)
   } else {
-    console.log("WRONG! press 'Reset' button");
+    $("#prompt").text("- WRONG! press 'Reset' button -")
+    console.log("WRONG! press 'Reset' button")
     return
   }  
 }
@@ -188,7 +189,7 @@ function gameInit () {
     showSequence()
     timerStart()
     listenToPlayer()
-    $("#start").hide()
+    $("#prompt").text("- Game Starts! -")
   })
 }
 
@@ -232,6 +233,8 @@ $(document).ready(function() {
 // https://stackoverflow.com/questions/30223174/formatted-string-to-js-array
 // https://stackoverflow.com/questions/10808096/using-css-transform-property-in-jquery
 // https://stackoverflow.com/questions/24961795/how-can-i-use-css3-transform-on-a-span
+// https://getbootstrap.com/docs/5.0/forms/overview/
+// https://www.w3schools.com/tags/tag_sup.asp
 // 
 
 // https://github.com/Keyframes/jQuery.Keyframes

@@ -1,8 +1,33 @@
 body {
+  /* display: flex; */
+  /* flex-flow: row; */
+  display: grid;
+  justify-content: space-evenly;
+  justify-items: center;
+}
+
+.left-side {
   display: flex;
   flex-flow: column;
   justify-content: center;
+  align-items: center;
   justify-items: center;
+  grid-column: 1 / span 3;
+}
+
+.right-side {
+  margin-top: 20px;
+  grid-column: 4 / span 1;
+  /* justify-content: end; */
+  /* justify-items: end; */
+
+  background-color: rgb(236, 236, 236);
+  border-radius: 10px; 
+  padding: 20px;
+}
+
+#simon {
+  font-size: 50px;
 }
 
 #hi {
@@ -75,4 +100,13 @@ body {
   display: flex;
   justify-content: center;
   margin-top: 50px;
+}
+
+#learnMore {
+  font-size: 15px;
+
+}
+
+#signUpBtn {
+  margin-left: 10px;
 }

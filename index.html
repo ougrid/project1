@@ -12,28 +12,58 @@
   <!-- <script type="module" src='./jQuery.Keyframes-master/src/jquery.keyframes.js'></script> -->
 </head>
 <body>
-  <h1 id="simon" class="text-center m-3">Let's play Simon!</h1>
-  <h2 class="text-center m-2">Hello, <span id="username" class=""></span>! <span id="hi">&#128400</span>&#128515 <span id="prompt"></span></h2>
-  <div class="score-time">
-    <h2 class="text-center m-4">Highest Score: <span id="score">00</span></h2>
-    <h2 class="text-center m-4">Time Left: <span id="time">00</span> s</h2>
-  </div>
-  <div class="container text-center color-wheel-parent">
-    <!-- <div class="row row-cols-2 m-5"> -->
-    <div class="color-wheel">
-      <div></div>
-      <div id="green" class="toprow field border bg-success text-bg-dark text tl"></div>
-      <div id="red" class="toprow field border bg-danger text-bg-dark tr"></div>
-      <div id="yellow" class="bottomrow field border bg-warning bl"></div>
-      <div id="blue" class="bottomrow field border bg-primary text-bg-dark br"></div>
+  <div class="left-side">
+    <h1 id="simon" class="text-center m-3">Let's play Simon!</h1>
+    <h2 class="text-center m-2">Hello, <span id="username" class=""></span>! <span id="hi">&#128400</span>&#128515</h2>
+    <h2 class="text-center m-2">&#128226 <span id="prompt"></span></h2>
+    <div class="score-time">
+      <h2 class="text-center m-4">Highest Score: <span id="score">00</span> <sup id="learnMore">&#128270</sup></h2> 
+      <h2 class="text-center m-4">Time Left: <span id="time">00</span> s</h2>
+    </div>
+    <div class="container text-center color-wheel-parent">
+      <!-- <div class="row row-cols-2 m-5"> -->
+      <div class="color-wheel">
+        <div></div>
+        <div id="green" class="toprow field border bg-success text-bg-dark text tl"></div>
+        <div id="red" class="toprow field border bg-danger text-bg-dark tr"></div>
+        <div id="yellow" class="bottomrow field border bg-warning bl"></div>
+        <div id="blue" class="bottomrow field border bg-primary text-bg-dark br"></div>
+      </div>
+    </div>
+    
+    <div class="buttons m-4">
+      <button id="start" class="btn btn-dark">Start</button>
+      <button id="reset" class="btn btn-dark">Reset</button>
+      <button id="add-player" class="btn btn-dark">Add New Player</button>
+      <!-- <button id="test-timer" class="button">timer reset - TO BE REMOVED</button> -->
     </div>
   </div>
   
-  <div class="buttons m-4">
-    <button id="start" class="">Start</button>
-    <button id="reset" class="">Reset</button>
-    <button id="add-player" class="">Add New Player</button>
-    <!-- <button id="test-timer" class="button">timer reset - TO BE REMOVED</button> -->
+  <div class="right-side">
+    <h2 id="logIn">Log In</h2>
+    <form>
+      <div class="mb-3">
+        <label for="InputUsername" class="form-label">Username</label>
+        <input type="" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <div id="emailHelp" class="form-text"></div>
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1">
+      </div>
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Set my account as default user</label>
+      </div>
+      <button id="logInBtn" type="submit" class="btn btn-outline-secondary">Log In</button>
+      <button id="signUpBtn" type="submit" class="btn btn-outline-secondary">Sign Up</button>
+    </form>
+    <h2 id="hallOfFame" class="mt-5 mb-4">Hall of Fame</h2>
+      <p>&#129351 1<sup>st</sup><span> :  </span></p>
+      <p>&#129352 2<sup>nd</sup><span> :  </span></p>
+      <p>&#129353 3<sup>rd</sup><span> :  </span></p>
+      <p>4<sup>th</sup><span> :  </span></p>
+      <p>5<sup>th</sup><span> :  </span></p>
   </div>
 
 
