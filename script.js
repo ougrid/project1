@@ -4,6 +4,8 @@ let sequence = []
 
 let playersSequence = []
 
+let interval = null
+
 class Player {
   constructor(username, password) {
     this.username = username
@@ -31,8 +33,9 @@ $("#add-player").on("click", e => {
   setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-50"), 250)
   setTimeout(() => $(`#${e.target.id}`).addClass("opacity-100"), 500)
   setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-100"), 1000)
-  let input1 = prompt("Type new player's username: ")
-  player1.addUser(input1)
+  let newPlayer = prompt(`Type new player's username and password:\n(Example format: player_2_username | player_2_password)`).split("|")
+  console.log(newPlayer)
+  // player1.addUser(input1)
 })
 
 // let setMaxScore = window.localStorage.setItem("maxScore", "0")
@@ -49,7 +52,7 @@ function showSequence() {
   console.log("call showSequence()");
   sequence.forEach((element, index) => {
     console.log(`show: ${element}`)
-    $(`#${element}`).text("THIS")
+    // $(`#${element}`).text("THIS")
     setTimeout(() => $(`#${element}`).addClass("opacity-50"), (index) * 500)
     setTimeout(() => $(`#${element}`).removeClass("opacity-50"), (index + 1) * 500)
     setTimeout(() => $(`#${element}`).addClass("opacity-100"), (index + 1) * 500)
@@ -119,21 +122,33 @@ function logMax (match) {
     }
 }
 
-function timer() {
-  // Attempt3
-  let counter = 5
-  let interval = setInterval(function () {
-    
+function timerStart() {
+  let counter = 10
+
+  interval = setInterval(function () {
     $("#time").text(`${counter}`)
     if (counter <= 0) {
-      // Display
       clearInterval(interval)
+      console.log("Time's up!")
     }
     counter--
   }, 1000)
   // addSequence()
   // showSequence()
 }
+
+function timerReset() {
+  clearInterval(interval)
+  console.log("TIMER RESET")
+  timerStart()
+}
+
+$("#test-timer").on("click", e => {
+  e.preventDefault()
+  timerReset()
+  $(`#${e.target.id}`).addClass("opacity-50")
+  setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-50"), 250)
+})
 
 // TO DO: log "RESET" when pressed
 // function reset () {
@@ -161,7 +176,7 @@ function gameInit () {
     playersSequence = []
     addSequence()
     showSequence()
-    // timer()
+    timerStart()
     listenToPlayer()
   })
 }
@@ -183,8 +198,6 @@ $(document).ready(function() {
 
 
 
-
-
 // Resources:
 // https://stackoverflow.com/questions/16344354/how-to-make-blinking-flashing-text-with-css-3
 // https://travishorn.com/delaying-foreach-iterations-2ebd4b29ad30
@@ -194,4 +207,5 @@ $(document).ready(function() {
 // https://stackoverflow.com/questions/3089475/how-can-i-create-a-5-second-countdown-timer-with-jquery-that-ends-with-a-login-p
 // https://codehs.com/tutorial/rachel/user-input-in-javascript
 // https://www.sitepoint.com/delay-sleep-pause-wait/
+// https://www.tutorialspoint.com/how-to-stop-a-function-during-its-execution-in-javascript
 // 

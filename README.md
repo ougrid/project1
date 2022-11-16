@@ -19,3 +19,9 @@ setTimeout(() => $(`#${element}`).removeClass("blink"), (index + 1) * 1000)
   }
 }
 ```
+
+
+
+
+__Time-based Scoring__
+if the user 
