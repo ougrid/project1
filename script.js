@@ -74,11 +74,12 @@ function listenToPlayer() {
     $(`#${e.target.id}`).addClass("opacity-50")
     setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-50"), 250)
     setTimeout(() => $(`#${e.target.id}`).addClass("opacity-100"), 500)
-    setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-100"), 1000)
+    setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-100"), 1500)
 
     console.log(`playersSequence: [${playersSequence}]`)
     if (playersSequence.length === sequence.length) {
       timerReset()
+      timerStart()
       matchCheck()
     }
   })
@@ -133,7 +134,7 @@ function timerStart() {
     $("#time").text(`${counter}`)
     if (counter <= 0) {
       clearInterval(timerInterval)
-      alert("Time's up!")
+      $("prompt").text("- Time's up! -")
       console.log("Time's up!")
       $("#start").show()
     }
@@ -145,8 +146,9 @@ function timerStart() {
 
 function timerReset() {
   clearInterval(timerInterval)
+  $("#time").text("00")
   console.log("TIMER RESET")
-  timerStart()
+  // timerStart()
 }
 
 // $("#test-timer").on("click", e => {
@@ -163,9 +165,10 @@ function timerReset() {
     setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-50"), 250)
     setTimeout(() => $(`#${e.target.id}`).addClass("opacity-100"), 500)
     setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-100"), 1000)
-    alert("Game reset, press 'Start' ")
+    $("#prompt").text("- Game Reset -")
     console.log("RESET")
     $("#start").show()
+    timerReset()
     gameInit()
   })
 // }
@@ -185,6 +188,7 @@ function gameInit () {
     showSequence()
     timerStart()
     listenToPlayer()
+    $("#start").hide()
   })
 }
 
