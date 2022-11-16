@@ -8,11 +8,16 @@
   <title>Simon</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
+  <!-- try JQuery.Keyframes -->
+  <!-- <script type="module" src='./jQuery.Keyframes-master/src/jquery.keyframes.js'></script> -->
 </head>
 <body>
   <h1 id="simon" class="text-center m-3">Let's play Simon!</h1>
-  <h2 class="text-center m-2">Your highest score: <span id="score">00</span></h2>
-  <h2 class="text-center m-4">Time Left: <span id="time">00</span> s</h2>
+  <h2 class="text-center m-2">Hello, <span id="username" class=""></span>! <span id="hi">&#128400</span></h2>
+  <div class="score-time">
+    <h2 class="text-center m-4">Highest Score: <span id="score">00</span></h2>
+    <h2 class="text-center m-4">Time Left: <span id="time">00</span> s</h2>
+  </div>
   <div class="container text-center color-wheel-parent">
     <!-- <div class="row row-cols-2 m-5"> -->
     <div class="color-wheel">
@@ -28,7 +33,7 @@
     <button id="start" class="">Start</button>
     <button id="reset" class="">Reset</button>
     <button id="add-player" class="">Add New Player</button>
-    <button id="test-timer" class="button">timer reset</button>
+    <!-- <button id="test-timer" class="button">timer reset - TO BE REMOVED</button> -->
   </div>
 
 

@@ -4,7 +4,7 @@ let sequence = []
 
 let playersSequence = []
 
-let interval = null
+let timerInterval = null
 
 class Player {
   constructor(username, password) {
@@ -16,6 +16,8 @@ class Player {
   addUser = (inputUsername, inputPassword) => {
     this.username = inputUsername
     this.password = inputPassword
+    let addInfo = window.localStorage.setItem(`${this.username}`, JSON.stringify([this.username, this.password]))
+    console.log(addInfo)
   }
 
   updateHighestScore = (inputHighestScore) => {
@@ -23,9 +25,9 @@ class Player {
   }
 } 
 
-// TO DO: make fn: promptUserForInput
-const player1 = new Player("username1", "password1")
-const player2 = new Player("username2", "password2")
+// TO DO: make a template player instance just to relay and store users' data in localStorage
+const newPlayer = new Player("username1", "password1")
+const currentPlayer = new Player("username2", "password2")
 
 $("#add-player").on("click", e => {
   e.preventDefault()
@@ -33,9 +35,10 @@ $("#add-player").on("click", e => {
   setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-50"), 250)
   setTimeout(() => $(`#${e.target.id}`).addClass("opacity-100"), 500)
   setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-100"), 1000)
-  let newPlayer = prompt(`Type new player's username and password:\n(Example format: player_2_username | player_2_password)`).split("|")
-  console.log(newPlayer)
-  // player1.addUser(input1)
+  let newPlayerInfo = prompt(`Type new player's username and password:\n(Example format: player_2_username | player_2_password)`).split(" | ")
+  console.log(newPlayerInfo)
+  newPlayer.addUser(newPlayerInfo[0], newPlayerInfo[1])
+  $("#username").text(`${newPlayerInfo[0]}`)
 })
 
 // let setMaxScore = window.localStorage.setItem("maxScore", "0")
@@ -75,6 +78,7 @@ function listenToPlayer() {
 
     console.log(`playersSequence: [${playersSequence}]`)
     if (playersSequence.length === sequence.length) {
+      timerReset()
       matchCheck()
     }
   })
@@ -100,7 +104,7 @@ function matchCheck() {
     playersSequence = []
     console.log(`playersSequence: ${playersSequence}`)
   } else {
-    console.log("WRONG! Press 'Reset'");
+    console.log("WRONG! press 'Reset' button");
     return
   }  
 }
@@ -125,11 +129,13 @@ function logMax (match) {
 function timerStart() {
   let counter = 10
 
-  interval = setInterval(function () {
+  timerInterval = setInterval(function () {
     $("#time").text(`${counter}`)
     if (counter <= 0) {
-      clearInterval(interval)
+      clearInterval(timerInterval)
+      alert("Time's up!")
       console.log("Time's up!")
+      $("#start").show()
     }
     counter--
   }, 1000)
@@ -138,19 +144,18 @@ function timerStart() {
 }
 
 function timerReset() {
-  clearInterval(interval)
+  clearInterval(timerInterval)
   console.log("TIMER RESET")
   timerStart()
 }
 
-$("#test-timer").on("click", e => {
-  e.preventDefault()
-  timerReset()
-  $(`#${e.target.id}`).addClass("opacity-50")
-  setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-50"), 250)
-})
+// $("#test-timer").on("click", e => {
+//   e.preventDefault()
+//   timerReset()
+//   $(`#${e.target.id}`).addClass("opacity-50")
+//   setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-50"), 250)
+// })
 
-// TO DO: log "RESET" when pressed
 // function reset () {
   $("#reset").on("click", e => {
     e.preventDefault
@@ -158,7 +163,9 @@ $("#test-timer").on("click", e => {
     setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-50"), 250)
     setTimeout(() => $(`#${e.target.id}`).addClass("opacity-100"), 500)
     setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-100"), 1000)
+    alert("Game reset, press 'Start' ")
     console.log("RESET")
+    $("#start").show()
     gameInit()
   })
 // }
@@ -184,11 +191,19 @@ function gameInit () {
 gameInit()
 
 $(document).ready(function() {
-  $("#score").text(window.localStorage.getItem("maxScore")) 
+  $("#score").text(window.localStorage.getItem("maxScore"))
+  console.log(window.localStorage.getItem("user1")) 
+  let obj = JSON.parse(window.localStorage.getItem("user1"))
+  console.log(obj)
+  console.log(obj[0]) 
+  $("#username").text(obj[0])
+  setTimeout(() => $("#hi").css("transform", "rotateZ(" + -45 + "deg)"), 500)
+  setTimeout(() => $("#hi").css("transform", "rotateZ(" + 45 + "deg)"), 1000)
+  setTimeout(() => $("#hi").css("transform", "rotateZ(" + -45 + "deg)"), 1500)
+  setTimeout(() => $("#hi").css("transform", "rotateZ(" + 0 + "deg)"), 2000)
+  // $("#hi").css("transform", "rotateZ(" + -90 + "deg)")
+
 })
-
-
-
 
 
 
@@ -208,4 +223,14 @@ $(document).ready(function() {
 // https://codehs.com/tutorial/rachel/user-input-in-javascript
 // https://www.sitepoint.com/delay-sleep-pause-wait/
 // https://www.tutorialspoint.com/how-to-stop-a-function-during-its-execution-in-javascript
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
+// https://stackoverflow.com/questions/28803076/javascript-how-to-create-new-instance-of-functions
+// https://stackoverflow.com/questions/30223174/formatted-string-to-js-array
+// https://stackoverflow.com/questions/10808096/using-css-transform-property-in-jquery
+// https://stackoverflow.com/questions/24961795/how-can-i-use-css3-transform-on-a-span
 // 
+
+// https://github.com/Keyframes/jQuery.Keyframes
+// http://keyframes.github.io/jQuery.Keyframes/
+// https://api.jquery.com/animate/
+// https://www.jqueryscript.net/animation/Set-CSS-Keyframes-jQuery.html

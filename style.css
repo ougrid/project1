@@ -5,6 +5,15 @@ body {
   justify-items: center;
 }
 
+#hi {
+  display: inline-block;
+}
+
+.score-time {
+  display: inline-flex;
+  justify-content: center;
+}
+
 .color-wheel-parent {
   /* margin-left: 10px; */
   display: flex;
