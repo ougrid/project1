@@ -6,7 +6,7 @@ let playersSequence = []
 
 let timerInterval = null
 
-// let defaultUser = ""
+let timestamp = "0"
 
 class Player {
   constructor(username, password) {
@@ -38,7 +38,17 @@ class Player {
 // TO DO: make a template player instance just to relay and store users' data in localStorage
 let newPlayer = new Player("username1", "password1", "0")
 let currentPlayer = new Player("username2", "password2")
-  
+
+$("#logInBtn").on("click", e => {
+  e.preventDefault()
+  let playerInfo = [$("#inputUsername").val(), $("#inputPassword").val()]
+  // if username and/ or password does not match the one on localStorage
+  // return "Incorrect Username and/ or Password" 
+
+  // if matched, then set currentPlayer to that username and password with
+
+})
+
 $("#signUpBtn").on("click", e => {
   e.preventDefault()
   $(`#${e.target.id}`).addClass("opacity-50")
@@ -148,8 +158,10 @@ function logMax (match) {
       // window.localStorage.removeItem("maxScore")
       console.log(`before-update maxScore: ${window.localStorage.getItem("maxScore")}`)
       window.localStorage.setItem("maxScore", `${playersSequence.length}`)
-      console.log(`timestamp: ${$("#time").text()}`);
-      $("#bestTime").text(`${$("#time").text()}`)
+      // console.log(`timestamp: ${$("#time").text()}`)
+      console.log(`timestamp: ${timestamp}`)
+      // $("#bestTime").text(`${$("#time").text()}`)
+      $("#bestTime").text(`${timestamp}`)
       console.log(`updated maxScore: ${window.localStorage.getItem("maxScore")}`)
       // console.log(`updated maxScore: ${getMaxScore}`)
       // $("#score").text(`${getMaxScore}`)
@@ -169,6 +181,7 @@ function timerStart() {
       console.log("Time's up!")
       $("#start").show()
     }
+    timestamp = counter
     counter--
   }, 1000)
   // addSequence()
@@ -251,6 +264,7 @@ $(document).ready(function() {
 // see real-time timestamp
 $("#test-timestamp").on("click", e => { 
   console.log($("#time").text());
+  console.log(timestamp);
 })
 
 
