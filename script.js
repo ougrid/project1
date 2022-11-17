@@ -12,20 +12,30 @@ class Player {
   constructor(username, password) {
     this.username = username
     this.password = password
-    this.highestScore = "0"
+    this.highestScore = "0/0"
   }
 
   logIn = (inputUsername, inputPassword) => {
-    this.username = inputUsername
-    this.password = inputPassword
-    let logInInfo = window.localStorage.getItem(`${this.username}`)
-    console.log(logInInfo)
+    let logInInfo = JSON.parse(window.localStorage.getItem(`${inputUsername}`))
+    try {
+      if (logInInfo[1] === inputPassword) {
+        this.username = inputUsername
+        this.password = inputPassword
+        this.highestScore = logInInfo[2]
+        console.log(`player found: ${logInInfo}`)
+      } 
+    } catch (error) {
+      console.log(error)
+    } finally {
+      promptPlayer("Incorrect Username and/ or Password")
+      console.log("Incorrect Username and/ or Password");
+    }
+    
   }
 
   addUser = (inputUsername, inputPassword) => {
     this.username = inputUsername
     this.password = inputPassword
-    this.highestScore = "0"
     window.localStorage.setItem(`${this.username}`, JSON.stringify([this.username, this.password, this.highestScore]))
     console.log(`update: ${JSON.parse(window.localStorage.getItem(`${this.username}`))}`)
   }
@@ -36,17 +46,14 @@ class Player {
 } 
 
 // TO DO: make a template player instance just to relay and store users' data in localStorage
-let newPlayer = new Player("username1", "password1", "0")
+let newPlayer = new Player("username1", "password1")
 let currentPlayer = new Player("username2", "password2")
 
 $("#logInBtn").on("click", e => {
   e.preventDefault()
   let playerInfo = [$("#inputUsername").val(), $("#inputPassword").val()]
-  // if username and/ or password does not match the one on localStorage
-  // return "Incorrect Username and/ or Password" 
-
-  // if matched, then set currentPlayer to that username and password with
-
+  currentPlayer.logIn(playerInfo[0], playerInfo[1])
+  $("form").trigger("reset")
 })
 
 $("#signUpBtn").on("click", e => {
@@ -292,6 +299,10 @@ $("#test-timestamp").on("click", e => {
 // https://www.w3schools.com/tags/tag_sup.asp
 // https://stackoverflow.com/questions/7837456/how-to-compare-arrays-in-javascript
 // https://www.w3resource.com/jquery-exercises/part1/jquery-practical-exercise-6.php
+// https://api.jquery.com/input-selector/
+// https://stackoverflow.com/questions/8701812/clear-form-after-submission-with-jquery
+// 
+
 
 // https://github.com/Keyframes/jQuery.Keyframes
 // http://keyframes.github.io/jQuery.Keyframes/
