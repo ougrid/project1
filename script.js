@@ -8,7 +8,7 @@ let timerInterval = null
 
 let timestamp = "0"
 
-let defaultUser = false
+let defaultChecked = false
 
 class Player {
   constructor(username, password) {
@@ -24,10 +24,11 @@ class Player {
         this.username = inputUsername
         this.password = inputPassword
         this.highestScore = logInInfo[2]
+        $("#username").text(`${this.username}`)
         console.log(`player found: ${logInInfo}`)
       } 
-      if (defaultUser === true) {
-        window.localStorage.setItem("default", `${inputUsername}`)
+      if (defaultChecked === true) {
+        window.localStorage.setItem("default", `${this.username}`)
         console.log(`updated default: ${window.localStorage.getItem("default")}`)
         console.log(currentPlayer);
       }
@@ -35,12 +36,6 @@ class Player {
       console.log(error)
       promptPlayer("Incorrect Username and/ or Password")
     } 
-    
-    // finally {
-    //   // promptPlayer("Incorrect Username and/ or Password")
-    //   // console.log("Incorrect Username and/ or Password");
-    // }
-    
   }
 
   addUser = (inputUsername, inputPassword) => {
@@ -86,7 +81,7 @@ $("#signUpBtn").on("click", e => {
 
 $("#defaultCheck").on("change", e => {
   e.preventDefault()
-  defaultUser = true
+  defaultChecked = true
   console.log("default checked")
 })
 
@@ -268,8 +263,11 @@ $(document).ready(function() {
   console.log(window.localStorage.getItem("user1")) 
   let obj = JSON.parse(window.localStorage.getItem("user1"))
   console.log(obj)
-  console.log(obj[0]) 
-  $("#username").text(obj[0])
+  console.log(obj[0])
+  window.localStorage.getItem(window.localStorage.getItem("default"))
+  let defaultUser = JSON.parse(window.localStorage.getItem(window.localStorage.getItem("default")))
+  console.log(`default user: ${defaultUser}`)
+  $("#username").text(defaultUser[0])
   promptPlayer("Press 'Start'")
   setTimeout(() => $("#hi").css("transform", "rotateZ(" + -45 + "deg)"), 500)
   setTimeout(() => $("#hi").css("transform", "rotateZ(" + 45 + "deg)"), 1000)
@@ -318,7 +316,8 @@ $("#test-timestamp").on("click", e => {
 // https://api.jquery.com/input-selector/
 // https://stackoverflow.com/questions/8701812/clear-form-after-submission-with-jquery
 // https://stackoverflow.com/questions/14544104/checkbox-check-event-listener
-// 
+// https://www.javascripttutorial.net/javascript-dom/javascript-checkbox/
+//
 
 
 // https://github.com/Keyframes/jQuery.Keyframes
