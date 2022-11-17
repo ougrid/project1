@@ -8,6 +8,8 @@ let timerInterval = null
 
 let timestamp = "0"
 
+let defaultUser = false
+
 class Player {
   constructor(username, password) {
     this.username = username
@@ -24,12 +26,20 @@ class Player {
         this.highestScore = logInInfo[2]
         console.log(`player found: ${logInInfo}`)
       } 
+      if (defaultUser === true) {
+        window.localStorage.setItem("default", `${inputUsername}`)
+        console.log(`updated default: ${window.localStorage.getItem("default")}`)
+        console.log(currentPlayer);
+      }
     } catch (error) {
       console.log(error)
-    } finally {
       promptPlayer("Incorrect Username and/ or Password")
-      console.log("Incorrect Username and/ or Password");
-    }
+    } 
+    
+    // finally {
+    //   // promptPlayer("Incorrect Username and/ or Password")
+    //   // console.log("Incorrect Username and/ or Password");
+    // }
     
   }
 
@@ -72,6 +82,12 @@ $("#signUpBtn").on("click", e => {
     $("#username").text(newPlayerInfo[0])
     promptPlayer("New Player Added")
   }
+})
+
+$("#defaultCheck").on("change", e => {
+  e.preventDefault()
+  defaultUser = true
+  console.log("default checked")
 })
 
 $("#learnMore").mouseover(e => {
@@ -152,7 +168,6 @@ function matchCheck() {
   } else {
     promptPlayer("WRONG! press 'Reset' button")
     console.log("WRONG! press 'Reset' button")
-    return
   }  
 }
 
@@ -261,6 +276,7 @@ $(document).ready(function() {
   setTimeout(() => $("#hi").css("transform", "rotateZ(" + -45 + "deg)"), 1500)
   setTimeout(() => $("#hi").css("transform", "rotateZ(" + 0 + "deg)"), 2000)
   // localStorage.setItem("maxScore", "0")
+  // localStorage.setItem("default", "user1")
   // localStorage.removeItem("")
 
 })
@@ -301,6 +317,7 @@ $("#test-timestamp").on("click", e => {
 // https://www.w3resource.com/jquery-exercises/part1/jquery-practical-exercise-6.php
 // https://api.jquery.com/input-selector/
 // https://stackoverflow.com/questions/8701812/clear-form-after-submission-with-jquery
+// https://stackoverflow.com/questions/14544104/checkbox-check-event-listener
 // 
 
 
