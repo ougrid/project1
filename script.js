@@ -14,7 +14,7 @@ class Player {
   constructor(username, password) {
     this.username = username
     this.password = password
-    this.highestScore = "0/0"
+    this.highestScore = "00/a00"
   }
 
   logIn = (inputUsername, inputPassword) => {
@@ -119,7 +119,6 @@ function showSequence() {
   })
 }
 
-// TO DO: make buttons blink when player clicks
 function listenToPlayer() {
   console.log("call listenToPlayer()");
   $("#green, #red, #yellow, #blue").on("click", e => {
@@ -169,22 +168,40 @@ function matchCheck() {
 function logMax (match) {
   console.log("call logMax()")
   console.log(`playersSequence.length: ${playersSequence.length}`)
+    // // if (playersSequence.length > Number(window.localStorage.getItem("maxScore")) || playersSequence.length > 0) {
+    // if (playersSequence.length > Number(window.localStorage.getItem("maxScore"))) {
+    //   console.log(`compare: \n  playersSequence.length: ${playersSequence.length}, getMaxScore: ${window.localStorage.getItem("maxScore")}`)
+    //   // window.localStorage.removeItem("maxScore")
+    //   console.log(`before-update maxScore: ${window.localStorage.getItem("maxScore")}`)
+    //   window.localStorage.setItem("maxScore", `${playersSequence.length}`)
+    //   // console.log(`timestamp: ${$("#time").text()}`)
+    //   console.log(`timestamp: ${timestamp}`)
+    //   // $("#bestTime").text(`${$("#time").text()}`)
+    //   $("#bestTime").text(`${timestamp}`)
+    //   console.log(`updated maxScore: ${window.localStorage.getItem("maxScore")}`)
+    //   // console.log(`updated maxScore: ${getMaxScore}`)
+    //   // $("#score").text(`${getMaxScore}`)
+    //   $("#score").text(window.localStorage.getItem("maxScore"))
+    //   console.log(window.localStorage)
+    // }
+
+    // test01: try log bestTime
     // if (playersSequence.length > Number(window.localStorage.getItem("maxScore")) || playersSequence.length > 0) {
-    if (playersSequence.length > Number(window.localStorage.getItem("maxScore"))) {
-      console.log(`compare: \n  playersSequence.length: ${playersSequence.length}, getMaxScore: ${window.localStorage.getItem("maxScore")}`)
-      // window.localStorage.removeItem("maxScore")
-      console.log(`before-update maxScore: ${window.localStorage.getItem("maxScore")}`)
-      window.localStorage.setItem("maxScore", `${playersSequence.length}`)
-      // console.log(`timestamp: ${$("#time").text()}`)
-      console.log(`timestamp: ${timestamp}`)
-      // $("#bestTime").text(`${$("#time").text()}`)
-      $("#bestTime").text(`${timestamp}`)
-      console.log(`updated maxScore: ${window.localStorage.getItem("maxScore")}`)
-      // console.log(`updated maxScore: ${getMaxScore}`)
-      // $("#score").text(`${getMaxScore}`)
-      $("#score").text(window.localStorage.getItem("maxScore"))
-      console.log(window.localStorage)
-    }
+      if (playersSequence.length > Number(window.localStorage.getItem("maxScore")) && window.localStorage.getItem("")) {
+        console.log(`compare: \n  playersSequence.length: ${playersSequence.length}, getMaxScore: ${window.localStorage.getItem("maxScore")}`)
+        console.log(`before-update maxScore: ${window.localStorage.getItem("maxScore")}`)
+        window.localStorage.setItem("maxScore", `${playersSequence.length}`)
+        console.log(`timestamp: ${timestamp}`)
+        $("#bestTime").text(`${timestamp}`)
+        console.log(`updated maxScore: ${window.localStorage.getItem("maxScore")}`)
+        $("#score").text(window.localStorage.getItem("maxScore"))
+        console.log(window.localStorage)
+      }
+
+      // if () {
+
+      // }
+    
 }
 
 function timerStart() {
@@ -273,6 +290,38 @@ $(document).ready(function() {
   setTimeout(() => $("#hi").css("transform", "rotateZ(" + 45 + "deg)"), 1000)
   setTimeout(() => $("#hi").css("transform", "rotateZ(" + -45 + "deg)"), 1500)
   setTimeout(() => $("#hi").css("transform", "rotateZ(" + 0 + "deg)"), 2000)
+  
+  // localStorage.setItem("users", "[]")
+  // console.log(JSON.parse(localStorage.getItem("users")));
+  // localStorage.setItem("user1", JSON.stringify({username: "user1", password: "pwd1", maxScore: "03/a10"}))
+  // localStorage.setItem("user2", JSON.stringify({username: "user2", password: "pwd2", maxScore: "03/a09"}))
+  // localStorage.setItem("user3", JSON.stringify({username: "user3", password: "pwd3", maxScore: "02/a03"}))
+  // localStorage.setItem("users", JSON.stringify(
+  //   [
+  //     {
+  //       username: "user1",
+  //       password: "pwd1",
+  //       maxScore: "03/a10"
+  //     },
+  //     {
+  //       username: "user2",
+  //       password: "pwd2",
+  //       maxScore: "03/a09"      
+  //     },
+  //     {
+  //       username: "user3",
+  //       password: "pwd3",
+  //       maxScore: "02/a03"      
+  //     }
+  //   ]
+  // ))
+  // localStorage.setItem("rank", JSON.stringify(
+  //   [
+  //     "03/r01",
+  //     "03/r00",
+  //     "02/r07"
+  //  ]
+  // ))
   // localStorage.setItem("maxScore", "0")
   // localStorage.setItem("default", "user1")
   // localStorage.removeItem("")
@@ -282,11 +331,11 @@ $(document).ready(function() {
 
 
 
-// see real-time timestamp
-$("#test-timestamp").on("click", e => { 
-  console.log($("#time").text());
-  console.log(timestamp);
-})
+// // see real-time timestamp (uncomment the button in html first)
+// $("#test-timestamp").on("click", e => { 
+//   console.log($("#time").text());
+//   console.log(timestamp);
+// })
 
 
 
@@ -317,9 +366,14 @@ $("#test-timestamp").on("click", e => {
 // https://stackoverflow.com/questions/8701812/clear-form-after-submission-with-jquery
 // https://stackoverflow.com/questions/14544104/checkbox-check-event-listener
 // https://www.javascripttutorial.net/javascript-dom/javascript-checkbox/
-//
+// https://stackoverflow.com/questions/28413947/space-efficient-way-to-encode-numbers-as-sortable-strings
+// https://stackoverflow.com/questions/30676488/how-to-time-functions-in-javascript-similar-to-python-timeit
+// https://stackoverflow.com/questions/2793847/sort-outer-array-based-on-values-in-inner-array-javascript
+// https://stackoverflow.com/questions/2824145/sorting-a-multidimensional-array-in-javascript
+// https://riptutorial.com/javascript/example/3443/sorting-multidimensional-array
+// 
 
-
+// Resources (reviewed but were not used):
 // https://github.com/Keyframes/jQuery.Keyframes
 // http://keyframes.github.io/jQuery.Keyframes/
 // https://api.jquery.com/animate/
