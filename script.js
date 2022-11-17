@@ -6,6 +6,8 @@ let playersSequence = []
 
 let timerInterval = null
 
+// let defaultUser = ""
+
 class Player {
   constructor(username, password) {
     this.username = username
@@ -23,8 +25,9 @@ class Player {
   addUser = (inputUsername, inputPassword) => {
     this.username = inputUsername
     this.password = inputPassword
-    let addInfo = window.localStorage.setItem(`${this.username}`, JSON.stringify([this.username, this.password]))
-    console.log(addInfo)
+    this.highestScore = "0"
+    window.localStorage.setItem(`${this.username}`, JSON.stringify([this.username, this.password, this.highestScore]))
+    console.log(`update: ${JSON.parse(window.localStorage.getItem(`${this.username}`))}`)
   }
 
   updateHighestScore = (inputHighestScore) => {
@@ -33,8 +36,21 @@ class Player {
 } 
 
 // TO DO: make a template player instance just to relay and store users' data in localStorage
-const newPlayer = new Player("username1", "password1")
-const currentPlayer = new Player("username2", "password2")
+let newPlayer = new Player("username1", "password1")
+let currentPlayer = new Player("username2", "password2")
+
+// $("#signUpBtn").on("click", e => {
+//   e.preventDefault()
+//   $(`#${e.target.id}`).addClass("opacity-50")
+//   setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-50"), 250)
+//   setTimeout(() => $(`#${e.target.id}`).addClass("opacity-100"), 500)
+//   setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-100"), 1000)
+//   let newPlayerInfo = prompt(`Type new player's username and password:\n(Example format: player_2_username | player_2_password)`).split(" | ")
+//   console.log(newPlayerInfo)
+//   newPlayer.addUser(newPlayerInfo[0], newPlayerInfo[1])
+//   $("#username").text(`${newPlayerInfo[0]}`)
+//   $("#prompt").text("- New Player Added -")
+// })
 
 $("#signUpBtn").on("click", e => {
   e.preventDefault()
@@ -42,10 +58,12 @@ $("#signUpBtn").on("click", e => {
   setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-50"), 250)
   setTimeout(() => $(`#${e.target.id}`).addClass("opacity-100"), 500)
   setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-100"), 1000)
-  let newPlayerInfo = prompt(`Type new player's username and password:\n(Example format: player_2_username | player_2_password)`).split(" | ")
-  console.log(newPlayerInfo)
+  // let newPlayerInfo = prompt(`Type new player's username and password:\n(Example format: player_2_username | player_2_password)`).split(" | ")
+  let newPlayerInfo = [$("#inputUsername").val(), $("#inputPassword").val()]
+  console.log(`newPlayerInfo: ${newPlayerInfo}`)
   newPlayer.addUser(newPlayerInfo[0], newPlayerInfo[1])
-  $("#username").text(`${newPlayerInfo[0]}`)
+  // $("#username").text(`${newPlayerInfo[0]}`)
+  $("#username").text(newPlayerInfo[0])
   $("#prompt").text("- New Player Added -")
 })
 
