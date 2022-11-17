@@ -291,7 +291,7 @@ $(document).ready(function() {
   setTimeout(() => $("#hi").css("transform", "rotateZ(" + -45 + "deg)"), 1500)
   setTimeout(() => $("#hi").css("transform", "rotateZ(" + 0 + "deg)"), 2000)
   
-  // localStorage.setItem("users", "[]")
+  // localStorage.setItem("users", "[]")  
   // console.log(JSON.parse(localStorage.getItem("users")));
   // localStorage.setItem("user1", JSON.stringify({username: "user1", password: "pwd1", maxScore: "03/a10"}))
   // localStorage.setItem("user2", JSON.stringify({username: "user2", password: "pwd2", maxScore: "03/a09"}))
