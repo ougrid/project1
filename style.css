@@ -110,3 +110,11 @@ body {
 #signUpBtn {
   margin-left: 10px;
 }
+
+#learnMore {
+  vertical-align: super;
+}
+
+p {
+  font-size: large;
+}

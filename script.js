@@ -13,6 +13,13 @@ class Player {
     this.highestScore = "0"
   }
 
+  logIn = (inputUsername, inputPassword) => {
+    this.username = inputUsername
+    this.password = inputPassword
+    let logInInfo = window.localStorage.getItem(`${this.username}`)
+    console.log(logInInfo)
+  }
+
   addUser = (inputUsername, inputPassword) => {
     this.username = inputUsername
     this.password = inputPassword
@@ -29,7 +36,7 @@ class Player {
 const newPlayer = new Player("username1", "password1")
 const currentPlayer = new Player("username2", "password2")
 
-$("#add-player").on("click", e => {
+$("#signUpBtn").on("click", e => {
   e.preventDefault()
   $(`#${e.target.id}`).addClass("opacity-50")
   setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-50"), 250)
@@ -39,6 +46,7 @@ $("#add-player").on("click", e => {
   console.log(newPlayerInfo)
   newPlayer.addUser(newPlayerInfo[0], newPlayerInfo[1])
   $("#username").text(`${newPlayerInfo[0]}`)
+  $("#prompt").text("- New Player Added -")
 })
 
 // let setMaxScore = window.localStorage.setItem("maxScore", "0")
