@@ -58,18 +58,28 @@ $("#signUpBtn").on("click", e => {
   setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-50"), 250)
   setTimeout(() => $(`#${e.target.id}`).addClass("opacity-100"), 500)
   setTimeout(() => $(`#${e.target.id}`).removeClass("opacity-100"), 1000)
-  // let newPlayerInfo = prompt(`Type new player's username and password:\n(Example format: player_2_username | player_2_password)`).split(" | ")
   let newPlayerInfo = [$("#inputUsername").val(), $("#inputPassword").val()]
   console.log(`newPlayerInfo: ${newPlayerInfo}`)
   newPlayer.addUser(newPlayerInfo[0], newPlayerInfo[1])
-  // $("#username").text(`${newPlayerInfo[0]}`)
   $("#username").text(newPlayerInfo[0])
   $("#prompt").text("- New Player Added -")
 })
 
-// let setMaxScore = window.localStorage.setItem("maxScore", "0")
+$("#learnMore").mouseover(e => {
+  e.preventDefault()
+  $("#learnMore").animate({
+    left: '-2px',
+    opacity: '0.5'
+    }, "fast")
+})
 
-// let getMaxScore = window.localStorage.getItem("maxScore")
+$("#learnMore").mouseleave(e => {
+  e.preventDefault()
+  $("#learnMore").animate({
+    left: '2px',
+    opacity: '1'
+    }, "fast")
+})
 
 function addSequence() {
   console.log("call addSequence()");
@@ -146,11 +156,12 @@ function logMax (match) {
       // window.localStorage.removeItem("maxScore")
       console.log(`before-update maxScore: ${window.localStorage.getItem("maxScore")}`)
       window.localStorage.setItem("maxScore", `${playersSequence.length}`)
+      // console.log(`timestamp: ${$("#bestTime").val()}`);
       console.log(`updated maxScore: ${window.localStorage.getItem("maxScore")}`)
       // console.log(`updated maxScore: ${getMaxScore}`)
       // $("#score").text(`${getMaxScore}`)
       $("#score").text(window.localStorage.getItem("maxScore"))
-      console.log(window.localStorage);
+      console.log(window.localStorage)
     }
 }
 
@@ -234,6 +245,8 @@ $(document).ready(function() {
   setTimeout(() => $("#hi").css("transform", "rotateZ(" + 0 + "deg)"), 2000)
   // $("#hi").css("transform", "rotateZ(" + -90 + "deg)")
 
+
+$(test-timestamp)
 })
 
 
