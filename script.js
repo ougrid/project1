@@ -38,7 +38,7 @@ class Player {
 // TO DO: make a template player instance just to relay and store users' data in localStorage
 let newPlayer = new Player("username1", "password1", "0")
 let currentPlayer = new Player("username2", "password2")
-
+  
 $("#signUpBtn").on("click", e => {
   e.preventDefault()
   $(`#${e.target.id}`).addClass("opacity-50")
