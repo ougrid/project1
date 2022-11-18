@@ -32,6 +32,10 @@ class Player {
         this.highestScore = usersInfo[2]
         $("#username").text(`${this.username}`)
         console.log(`player found: ${usersInfo}`)
+
+        let maxSteps_bestTime = this.highestScore.split("/")
+        $("#bestSteps").text(`${maxSteps_bestTime[0]}`)
+        $("#bestTime").text(`${maxSteps_bestTime[1]}`)
       } 
       if (defaultChecked === true) {
         localStorage.setItem("default", `${this.username}`)
@@ -56,8 +60,12 @@ class Player {
     parsedUsers.password = this.password
     parsedUsers.maxScore = this.highestScore
     localStorage.setItem("users", JSON.stringify(parsedUsers))
-  } 
 
+    if (defaultChecked === true) {
+      localStorage.setItem("default", `${this.username}`)
+      console.log(`updated default: ${localStorage.getItem("default")}`)
+    }
+  } 
 
   updateHighestScore = (inputHighestScore) => {
     this.highestScore = inputHighestScore
@@ -302,7 +310,7 @@ $(document).ready(function() {
   currentPlayer.username = localStorage.getItem("default")
   console.log(currentPlayer.username)
   currentPlayer.highestScore = parsedUsers[currentPlayer.username]["maxScore"]
-  maxSteps_bestTime = currentPlayer.highestScore.split("/")
+  let maxSteps_bestTime = currentPlayer.highestScore.split("/")
   $("#bestSteps").text(`${maxSteps_bestTime[0]}`)
   $("#bestTime").text(`${maxSteps_bestTime[1]}`)
   $("#username").text(currentPlayer.username)
@@ -317,6 +325,7 @@ $(document).ready(function() {
   // window.localStorage.getItem(window.localStorage.getItem("default"))
   // let defaultUser = JSON.parse(localStorage.getItem("default"))
   // console.log(`default user: ${defaultUser}`)
+
 
 
   promptPlayer("Press 'Start'")
