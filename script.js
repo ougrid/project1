@@ -11,6 +11,7 @@ let timeUsed = "0"
 let defaultChecked = false
 
 let parsedUsers = JSON.parse(localStorage.getItem("users"))
+console.log(`parsedUsers: ${parsedUsers}`);
 
 class Player {
   constructor(username, password) {
@@ -22,7 +23,8 @@ class Player {
   logIn = (inputUsername, inputPassword) => {
     // let logInInfo = JSON.parse(window.localStorage.getItem(`${inputUsername}`))
     // let parsedUsers = JSON.parse(localStorage.getItem("users"))
-    let usersInfo = [parsedUsers[`${inputUsername}`], parsedUsers[`${inputPassword}`], parsedUsers["maxScore"]]
+    let usersInfo = [ parsedUsers[`${inputUsername}`]["username"], parsedUsers[`${inputUsername}`]["password"], parsedUsers[`${inputUsername}`]["maxScore"] ]
+    console.log(usersInfo)
     try {
       if (usersInfo[1] === inputPassword) {
         this.username = inputUsername
@@ -34,21 +36,13 @@ class Player {
       if (defaultChecked === true) {
         localStorage.setItem("default", `${this.username}`)
         console.log(`updated default: ${localStorage.getItem("default")}`)
-        console.log(currentPlayer);
+        console.log(`currentPlayer: ${currentPlayer.username}, ${currentPlayer.password}, ${currentPlayer.highestScore}`);
       }
     } catch (error) {
       console.log(error)
       promptPlayer("Incorrect Username and/ or Password")
     } 
   }
-  
-  // setItem = (key, value) => {
-  //   localStorage.setItem(key, JSON.stringify(value))
-  // }
-
-  // getItem (key) {
-  //   localStorage.getItem(JSON.parse(key))
-  // }
 
   addUser = (inputUsername, inputPassword) => {
     this.username = inputUsername
