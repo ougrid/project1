@@ -75,6 +75,10 @@ localStorage = [{
     "03/r01",
     "03/r00",
     "02/r07"
+  ],
+
+  hallOfFame: [
+    
   ]
 }]
 ```

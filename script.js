@@ -37,13 +37,29 @@ class Player {
       promptPlayer("Incorrect Username and/ or Password")
     } 
   }
+  
+  // setItem = (key, value) => {
+  //   localStorage.setItem(key, JSON.stringify(value))
+  // }
+
+  // getItem (key) {
+  //   localStorage.getItem(JSON.parse(key))
+  // }
 
   addUser = (inputUsername, inputPassword) => {
     this.username = inputUsername
     this.password = inputPassword
-    window.localStorage.setItem(`${this.username}`, JSON.stringify([this.username, this.password, this.highestScore]))
-    console.log(`update: ${JSON.parse(window.localStorage.getItem(`${this.username}`))}`)
-  }
+    // window.localStorage.setItem(`${this.username}`, JSON.stringify([this.username, this.password, this.highestScore]))
+    // console.log(`update: ${JSON.parse(window.localStorage.getItem(`${this.username}`))}`)
+    let addedUsers = JSON.parse(localStorage.getItem("users"))
+    console.log(addedUsers);
+    addedUsers.username = this.username
+    addedUsers.username = this.username
+    addedUsers.password = this.password
+    addedUsers.maxScore = this.highestScore
+    localStorage.setItem("users", JSON.stringify(addedUsers))
+  } 
+
 
   updateHighestScore = (inputHighestScore) => {
     this.highestScore = inputHighestScore
@@ -77,6 +93,7 @@ $("#signUpBtn").on("click", e => {
     $("#username").text(newPlayerInfo[0])
     promptPlayer("New Player Added")
   }
+  $("form").trigger("reset")
 })
 
 $("#defaultCheck").on("change", e => {
@@ -187,7 +204,7 @@ function logMax (match) {
 
     // test01: try log bestTime
     // if (playersSequence.length > Number(window.localStorage.getItem("maxScore")) || playersSequence.length > 0) {
-      if (playersSequence.length > Number(window.localStorage.getItem("maxScore")) && window.localStorage.getItem("")) {
+      if (playersSequence.length > Number(window.localStorage.getItem("maxScore")) && localStorage.getItem("")) {
         console.log(`compare: \n  playersSequence.length: ${playersSequence.length}, getMaxScore: ${window.localStorage.getItem("maxScore")}`)
         console.log(`before-update maxScore: ${window.localStorage.getItem("maxScore")}`)
         window.localStorage.setItem("maxScore", `${playersSequence.length}`)
@@ -197,7 +214,6 @@ function logMax (match) {
         $("#score").text(window.localStorage.getItem("maxScore"))
         console.log(window.localStorage)
       }
-
       // if () {
 
       // }
@@ -215,7 +231,12 @@ function timerStart() {
       console.log("Time's up!")
       $("#start").show()
     }
-    timestamp = counter
+
+    if (counter < 10) {
+      timestamp = `0${counter}`
+    } else {
+      timestamp = counter
+    }
     counter--
   }, 1000)
   // addSequence()
@@ -296,31 +317,32 @@ $(document).ready(function() {
   // localStorage.setItem("user1", JSON.stringify({username: "user1", password: "pwd1", maxScore: "03/a10"}))
   // localStorage.setItem("user2", JSON.stringify({username: "user2", password: "pwd2", maxScore: "03/a09"}))
   // localStorage.setItem("user3", JSON.stringify({username: "user3", password: "pwd3", maxScore: "02/a03"}))
-  // localStorage.setItem("users", JSON.stringify(
-  //   [
-  //     {
+  // localStorage.setItem(
+  //   "users",
+  //   JSON.stringify({
+  //     user1: {
   //       username: "user1",
   //       password: "pwd1",
-  //       maxScore: "03/a10"
+  //       maxScore: "03/a10",
   //     },
-  //     {
+  //     user2: {
   //       username: "user2",
   //       password: "pwd2",
-  //       maxScore: "03/a09"      
+  //       maxScore: "03/a09",
   //     },
-  //     {
+  //     user3: {
   //       username: "user3",
   //       password: "pwd3",
-  //       maxScore: "02/a03"      
-  //     }
-  //   ]
-  // ))
+  //       maxScore: "02/a03",
+  //     },
+  //   })
+  // )
   // localStorage.setItem("rank", JSON.stringify(
   //   [
   //     "03/r01",
   //     "03/r00",
   //     "02/r07"
-  //  ]
+  //   ]
   // ))
   // localStorage.setItem("maxScore", "0")
   // localStorage.setItem("default", "user1")
