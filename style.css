@@ -34,7 +34,7 @@ body {
   display: inline-block;
 }
 
-.score-time {
+.step-time {
   display: inline-flex;
   justify-content: center;
 }

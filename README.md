@@ -57,24 +57,24 @@ localStorage = [{
     {
       username: "user1",
       password: "pwd1",
-      maxScore: "03/a10"
+      maxScore: "03/04"
     },
     {
       username: "user2",
       password: "pwd2",
-      maxScore: "03/a09"      
+      maxScore: "03/06"      
     },
     {
       username: "user3",
       password: "pwd3",
-      maxScore: "02/a03"      
+      maxScore: "02/07"      
     }
   ],
 
   rank: [
-    "03/r01",
-    "03/r00",
-    "02/r07"
+    "03/04",
+    "03/06",
+    "02/07"
   ],
 
   hallOfFame: [

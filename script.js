@@ -6,9 +6,11 @@ let playersSequence = []
 
 let timerInterval = null
 
-let timestamp = "0"
+let timeUsed = "0"
 
 let defaultChecked = false
+
+let parsedUsers = JSON.parse(localStorage.getItem("users"))
 
 class Player {
   constructor(username, password) {
@@ -18,18 +20,20 @@ class Player {
   }
 
   logIn = (inputUsername, inputPassword) => {
-    let logInInfo = JSON.parse(window.localStorage.getItem(`${inputUsername}`))
+    // let logInInfo = JSON.parse(window.localStorage.getItem(`${inputUsername}`))
+    // let parsedUsers = JSON.parse(localStorage.getItem("users"))
+    let usersInfo = [parsedUsers[`${inputUsername}`], parsedUsers[`${inputPassword}`], parsedUsers["maxScore"]]
     try {
-      if (logInInfo[1] === inputPassword) {
+      if (usersInfo[1] === inputPassword) {
         this.username = inputUsername
         this.password = inputPassword
-        this.highestScore = logInInfo[2]
+        this.highestScore = usersInfo[2]
         $("#username").text(`${this.username}`)
-        console.log(`player found: ${logInInfo}`)
+        console.log(`player found: ${usersInfo}`)
       } 
       if (defaultChecked === true) {
-        window.localStorage.setItem("default", `${this.username}`)
-        console.log(`updated default: ${window.localStorage.getItem("default")}`)
+        localStorage.setItem("default", `${this.username}`)
+        console.log(`updated default: ${localStorage.getItem("default")}`)
         console.log(currentPlayer);
       }
     } catch (error) {
@@ -51,13 +55,13 @@ class Player {
     this.password = inputPassword
     // window.localStorage.setItem(`${this.username}`, JSON.stringify([this.username, this.password, this.highestScore]))
     // console.log(`update: ${JSON.parse(window.localStorage.getItem(`${this.username}`))}`)
-    let addedUsers = JSON.parse(localStorage.getItem("users"))
-    console.log(addedUsers);
-    addedUsers.username = this.username
-    addedUsers.username = this.username
-    addedUsers.password = this.password
-    addedUsers.maxScore = this.highestScore
-    localStorage.setItem("users", JSON.stringify(addedUsers))
+    // let parsedUsers = JSON.parse(localStorage.getItem("users"))
+    console.log(parsedUsers);
+    parsedUsers.username = this.username
+    parsedUsers.username = this.username
+    parsedUsers.password = this.password
+    parsedUsers.maxScore = this.highestScore
+    localStorage.setItem("users", JSON.stringify(parsedUsers))
   } 
 
 
@@ -233,9 +237,9 @@ function timerStart() {
     }
 
     if (counter < 10) {
-      timestamp = `0${counter}`
+      timeUsed = `0${counter}`
     } else {
-      timestamp = counter
+      timeUsed = 10 - counter
     }
     counter--
   }, 1000)
@@ -296,16 +300,31 @@ function gameInit () {
 
 gameInit()
 
+// Set parameters after the page loaded
 $(document).ready(function() {
-  $("#score").text(window.localStorage.getItem("maxScore"))
-  console.log(window.localStorage.getItem("user1")) 
-  let obj = JSON.parse(window.localStorage.getItem("user1"))
-  console.log(obj)
-  console.log(obj[0])
-  window.localStorage.getItem(window.localStorage.getItem("default"))
-  let defaultUser = JSON.parse(window.localStorage.getItem(window.localStorage.getItem("default")))
-  console.log(`default user: ${defaultUser}`)
-  $("#username").text(defaultUser[0])
+  // let parsedUsers = JSON.parse(localStorage.getItem("users"))
+
+  console.log(parsedUsers);
+  currentPlayer.username = localStorage.getItem("default")
+  console.log(currentPlayer.username)
+  currentPlayer.highestScore = parsedUsers[currentPlayer.username]["maxScore"]
+  maxSteps_bestTime = currentPlayer.highestScore.split("/")
+  $("#bestSteps").text(`${maxSteps_bestTime[0]}`)
+  $("#bestTime").text(`${maxSteps_bestTime[1]}`)
+  $("#username").text(currentPlayer.username)
+
+
+
+  // console.log(window.localStorage.getItem("user1")) 
+  // let obj = JSON.parse(window.localStorage.getItem("user1"))
+  // console.log(obj)
+  // console.log(obj[0])
+  
+  // window.localStorage.getItem(window.localStorage.getItem("default"))
+  // let defaultUser = JSON.parse(localStorage.getItem("default"))
+  // console.log(`default user: ${defaultUser}`)
+
+
   promptPlayer("Press 'Start'")
   setTimeout(() => $("#hi").css("transform", "rotateZ(" + -45 + "deg)"), 500)
   setTimeout(() => $("#hi").css("transform", "rotateZ(" + 45 + "deg)"), 1000)
@@ -317,36 +336,48 @@ $(document).ready(function() {
   // localStorage.setItem("user1", JSON.stringify({username: "user1", password: "pwd1", maxScore: "03/a10"}))
   // localStorage.setItem("user2", JSON.stringify({username: "user2", password: "pwd2", maxScore: "03/a09"}))
   // localStorage.setItem("user3", JSON.stringify({username: "user3", password: "pwd3", maxScore: "02/a03"}))
+  // localStorage.removeItem("user1")
+  // localStorage.removeItem("user2")
+  // localStorage.removeItem("user3")
+  // localStorage.clear()
+
+
+  // // Setting Dummy Data:
   // localStorage.setItem(
   //   "users",
   //   JSON.stringify({
   //     user1: {
   //       username: "user1",
   //       password: "pwd1",
-  //       maxScore: "03/a10",
+  //       maxScore: "03/04",
   //     },
   //     user2: {
   //       username: "user2",
   //       password: "pwd2",
-  //       maxScore: "03/a09",
+  //       maxScore: "03/06",
   //     },
   //     user3: {
   //       username: "user3",
   //       password: "pwd3",
-  //       maxScore: "02/a03",
+  //       maxScore: "02/07",
   //     },
   //   })
   // )
   // localStorage.setItem("rank", JSON.stringify(
   //   [
-  //     "03/r01",
-  //     "03/r00",
-  //     "02/r07"
+  //     "03/04",
+  //     "03/06",
+  //     "02/07"
   //   ]
   // ))
-  // localStorage.setItem("maxScore", "0")
   // localStorage.setItem("default", "user1")
-  // localStorage.removeItem("")
+  // localStorage.setItem("hallOfFame", "[]")
+
+
+
+  console.log(localStorage);
+ 
+
 
 })
 
@@ -393,6 +424,7 @@ $(document).ready(function() {
 // https://stackoverflow.com/questions/2793847/sort-outer-array-based-on-values-in-inner-array-javascript
 // https://stackoverflow.com/questions/2824145/sorting-a-multidimensional-array-in-javascript
 // https://riptutorial.com/javascript/example/3443/sorting-multidimensional-array
+// https://stackoverflow.com/questions/2577172/how-to-get-objects-value-if-its-name-contains-dots
 // 
 
 // Resources (reviewed but were not used):
