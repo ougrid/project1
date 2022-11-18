@@ -1,3 +1,5 @@
+
+
 let colorBtns = ["green", "red", "yellow", "blue"]
 
 let sequence = []
@@ -30,10 +32,12 @@ class Player {
         this.username = inputUsername
         this.password = inputPassword
         this.highestScore = usersInfo[2]
+        console.log("LogUserInfo"+usersInfo);
         $("#username").text(`${this.username}`)
         console.log(`player found: ${usersInfo}`)
-
-        let maxSteps_bestTime = this.highestScore.split("/")
+        let temp = this.highestScore
+        console.log(temp.split('/'));
+        let maxSteps_bestTime = (this.highestScore).split("/")
         $("#bestSteps").text(`${maxSteps_bestTime[0]}`)
         $("#bestTime").text(`${maxSteps_bestTime[1]}`)
       } 
@@ -58,8 +62,8 @@ class Player {
     console.log(usersInfo)
     
     if (usersInfo[0] === inputUsername) {
-      console.log("Username already taken")
-      promptPlayer("Username Already Taken")
+      console.log("Username Is already taken")
+      promptPlayer("Username Is Already Taken")
     } else {
       parsedUsers[this.username] = {}
       parsedUsers[this.username]["username"] = this.username
@@ -226,17 +230,29 @@ function logMax (match) {
 
     // test01: try log bestTime
     // if (playersSequence.length > Number(window.localStorage.getItem("maxScore")) || playersSequence.length > 0) {
-      if (playersSequence.length > Number(maxSteps_bestTime[0]) && Number(timeUsed) < Number(maxSteps_bestTime[1]) ) {
-        console.log(Number(maxSteps_bestTime[1]))
+      let maxSteps_bestTime = currentPlayer.highestScore.split("/")
+      console.log(maxSteps_bestTime);
+      if (playersSequence.length > Number(maxSteps_bestTime[0])) {
         // console.log(`compare: \n  playersSequence.length: ${playersSequence.length}, getMaxScore: ${window.localStorage.getItem("maxScore")}`)
         // console.log(`before-update maxScore: ${window.localStorage.getItem("maxScore")}`)
-        // if ()
-        localStorage.setItem("maxScore", `${playersSequence.length}`)
-        console.log(`timestamp: ${timestamp}`)
-        $("#bestTime").text(`${timestamp}`)
-        console.log(`updated maxScore: ${window.localStorage.getItem("maxScore")}`)
-        $("#score").text(window.localStorage.getItem("maxScore"))
-        console.log(window.localStorage)
+        parsedUsers[`${currentPlayer.username}`]["maxScore"] = `0${playersSequence.length}/${timeUsed}`
+        // localStorage.setItem("maxScore", `${playersSequence.length}`)
+        console.log(`timeUsed: ${timeUsed}`)
+        $("#bestTime").text(`${timeUsed}`)
+        console.log(`updated maxScore: 0${playersSequence.length}/${timeUsed}`)
+        $("#bestSteps").text(`0${playersSequence.length}`)
+        localStorage.setItem("users", JSON.stringify(parsedUsers)) 
+        console.log(localStorage)
+      } else if (playersSequence.length === Number(maxSteps_bestTime[0]) && Number(timeUsed) < Number(maxSteps_bestTime[1])) {
+        //log it on localStorage
+        parsedUsers[`${currentPlayer.username}`]["maxScore"] = `0${playersSequence.length}/${timeUsed}`
+        // localStorage.setItem("maxScore", `${playersSequence.length}`)
+        console.log(`timeUsed: ${timeUsed}`)
+        $("#bestTime").text(`${timeUsed}`)
+        console.log(`updated maxScore: 0${playersSequence.length}/${timeUsed}`)
+        $("#bestSteps").text(`0${playersSequence.length}`)
+        localStorage.setItem("users", JSON.stringify(parsedUsers)) 
+        console.log(localStorage)
       }
     
 }
@@ -289,7 +305,18 @@ $("#reset").on("click", e => {
   $("#start").toggle()
   timerReset()
   gameInit()
+  updateHall()
 })
+
+function updateHall() {
+  let rank = JSON.parse(localStorage.getItem("rank"))
+  rank.sort()
+  rank.push(`0${playersSequence.length}/${timeUsed}`)
+  rank.sort()
+  
+  console.log(JSON.parse(localStorage.getItem("rank")))
+}
+
 
 function promptPlayer (inputText) {
   return $("#prompt").text(`- ${inputText} -`).fadeOut(200).fadeIn(50)
@@ -312,21 +339,34 @@ function gameInit () {
     listenToPlayer()
     promptPlayer("Game Starts!")
     $("#start").toggle()
+
+    console.log('-----------------------------------',currentPlayer);
+    let maxSteps_bestTime = currentPlayer.highestScore.split("/")
+    console.log(parsedUsers);
+    // currentPlayer.username = localStorage.getItem("default")
+    console.log("A"+currentPlayer.username["maxScore"])
+    currentPlayer.highestScore = parsedUsers[currentPlayer.username]["maxScore"]
+    console.log("B"+parsedUsers[currentPlayer.username]["maxScore"])
+
+    $("#bestSteps").text(`${maxSteps_bestTime[0]}`)
+    $("#bestTime").text(`${maxSteps_bestTime[1]}`)
+    $("#username").text(currentPlayer.username)
   })
 }
 
 gameInit()
 
 // Set parameters after the page loaded
-let maxSteps_bestTime = currentPlayer.highestScore.split("/")
 
 $(document).ready(function() {
   // let parsedUsers = JSON.parse(localStorage.getItem("users"))
-
+  let maxSteps_bestTime = currentPlayer.highestScore.split("/")
   console.log(parsedUsers);
   currentPlayer.username = localStorage.getItem("default")
   console.log(currentPlayer.username)
   currentPlayer.highestScore = parsedUsers[currentPlayer.username]["maxScore"]
+  console.log("aa."+parsedUsers[currentPlayer.username]["maxScore"]);
+  // console.log(currentPlayer.highestScore);
 
   $("#bestSteps").text(`${maxSteps_bestTime[0]}`)
   $("#bestTime").text(`${maxSteps_bestTime[1]}`)

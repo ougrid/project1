@@ -54,17 +54,17 @@ __Data Structure on localStorage__
 // Example data from localStorage
 localStorage = [{
   users: [
-    {
+    user1: {
       username: "user1",
       password: "pwd1",
       maxScore: "03/04"
     },
-    {
+    user2: {
       username: "user2",
       password: "pwd2",
       maxScore: "03/06"      
     },
-    {
+    user2: {
       username: "user3",
       password: "pwd3",
       maxScore: "02/07"      
