@@ -49,25 +49,38 @@ class Player {
   }
 
   addUser = (inputUsername, inputPassword) => {
+    
     this.username = inputUsername
     this.password = inputPassword
+    
+    //
+    let usersInfo = [ parsedUsers[`${inputUsername}`]["username"], parsedUsers[`${inputUsername}`]["password"], parsedUsers[`${inputUsername}`]["maxScore"] ]
+    console.log(usersInfo)
+    
+    if (usersInfo[0] === inputUsername) {
+      console.log("Username already taken")
+      promptPlayer("Username Already Taken")
+    } else {
+      parsedUsers[this.username] = {}
+      parsedUsers[this.username]["username"] = this.username
+      parsedUsers[this.username]["password"] = this.password
+      parsedUsers[this.username]["maxScore"] = this.highestScore
+      localStorage.setItem("users", JSON.stringify(parsedUsers))
   
-    // window.localStorage.setItem(`${this.username}`, JSON.stringify([this.username, this.password, this.highestScore]))
-    // console.log(`update: ${JSON.parse(window.localStorage.getItem(`${this.username}`))}`)
-    // let parsedUsers = JSON.parse(localStorage.getItem("users"))
-
-    parsedUsers[this.username] = {}
-    parsedUsers[this.username]["username"] = this.username
-    parsedUsers[this.username]["password"] = this.password
-    parsedUsers[this.username]["maxScore"] = this.highestScore
-    localStorage.setItem("users", JSON.stringify(parsedUsers))
-
-
+      $("#username").text(`${this.username}`)
+      console.log(`player added: ${this.username}`)
+  
+      let maxSteps_bestTime = this.highestScore.split("/")
+      $("#bestSteps").text(`${maxSteps_bestTime[0]}`)
+      $("#bestTime").text(`${maxSteps_bestTime[1]}`)
+    }
+    //
 
     if (defaultChecked === true) {
       localStorage.setItem("default", `${this.username}`)
       console.log(`updated default: ${localStorage.getItem("default")}`)
     }
+    
   } 
 
   updateHighestScore = (inputHighestScore) => {
@@ -99,8 +112,8 @@ $("#signUpBtn").on("click", e => {
   } else {
     console.log(`newPlayerInfo: ${newPlayerInfo}`)
     newPlayer.addUser(newPlayerInfo[0], newPlayerInfo[1])
-    $("#username").text(newPlayerInfo[0])
-    promptPlayer("New Player Added")
+    // $("#username").text(newPlayerInfo[0])
+    // promptPlayer("New Player Added")
   }
   $("form").trigger("reset")
 })
@@ -163,7 +176,7 @@ function listenToPlayer() {
       timerStart()
       matchCheck()
     }
-  })
+  })   
 }
 
 // TO DO: make it return fault rigth when it detects the first wrong element
@@ -214,9 +227,11 @@ function logMax (match) {
     // test01: try log bestTime
     // if (playersSequence.length > Number(window.localStorage.getItem("maxScore")) || playersSequence.length > 0) {
       if (playersSequence.length > Number(maxSteps_bestTime[0]) && Number(timeUsed) < Number(maxSteps_bestTime[1]) ) {
-        console.log(`compare: \n  playersSequence.length: ${playersSequence.length}, getMaxScore: ${window.localStorage.getItem("maxScore")}`)
-        console.log(`before-update maxScore: ${window.localStorage.getItem("maxScore")}`)
-        window.localStorage.setItem("maxScore", `${playersSequence.length}`)
+        console.log(Number(maxSteps_bestTime[1]))
+        // console.log(`compare: \n  playersSequence.length: ${playersSequence.length}, getMaxScore: ${window.localStorage.getItem("maxScore")}`)
+        // console.log(`before-update maxScore: ${window.localStorage.getItem("maxScore")}`)
+        // if ()
+        localStorage.setItem("maxScore", `${playersSequence.length}`)
         console.log(`timestamp: ${timestamp}`)
         $("#bestTime").text(`${timestamp}`)
         console.log(`updated maxScore: ${window.localStorage.getItem("maxScore")}`)
@@ -303,6 +318,8 @@ function gameInit () {
 gameInit()
 
 // Set parameters after the page loaded
+let maxSteps_bestTime = currentPlayer.highestScore.split("/")
+
 $(document).ready(function() {
   // let parsedUsers = JSON.parse(localStorage.getItem("users"))
 
@@ -310,7 +327,7 @@ $(document).ready(function() {
   currentPlayer.username = localStorage.getItem("default")
   console.log(currentPlayer.username)
   currentPlayer.highestScore = parsedUsers[currentPlayer.username]["maxScore"]
-  let maxSteps_bestTime = currentPlayer.highestScore.split("/")
+
   $("#bestSteps").text(`${maxSteps_bestTime[0]}`)
   $("#bestTime").text(`${maxSteps_bestTime[1]}`)
   $("#username").text(currentPlayer.username)
