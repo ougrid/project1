@@ -6,18 +6,18 @@ let playersSequence = []
 
 let timerInterval = null
 
-let timeUsed = "0"
+let timeUsed = "00"
 
 let defaultChecked = false
 
 let parsedUsers = JSON.parse(localStorage.getItem("users"))
-console.log(`parsedUsers: ${parsedUsers}`);
+console.log(`parsedUsers: ${parsedUsers}`)
 
 class Player {
   constructor(username, password) {
     this.username = username
     this.password = password
-    this.highestScore = "00/a00"
+    this.highestScore = "00/00"
   }
 
   logIn = (inputUsername, inputPassword) => {
@@ -51,15 +51,18 @@ class Player {
   addUser = (inputUsername, inputPassword) => {
     this.username = inputUsername
     this.password = inputPassword
+  
     // window.localStorage.setItem(`${this.username}`, JSON.stringify([this.username, this.password, this.highestScore]))
     // console.log(`update: ${JSON.parse(window.localStorage.getItem(`${this.username}`))}`)
     // let parsedUsers = JSON.parse(localStorage.getItem("users"))
-    console.log(parsedUsers);
-    parsedUsers.username = this.username
-    parsedUsers.username = this.username
-    parsedUsers.password = this.password
-    parsedUsers.maxScore = this.highestScore
+
+    parsedUsers[this.username] = {}
+    parsedUsers[this.username]["username"] = this.username
+    parsedUsers[this.username]["password"] = this.password
+    parsedUsers[this.username]["maxScore"] = this.highestScore
     localStorage.setItem("users", JSON.stringify(parsedUsers))
+
+
 
     if (defaultChecked === true) {
       localStorage.setItem("default", `${this.username}`)
@@ -210,7 +213,7 @@ function logMax (match) {
 
     // test01: try log bestTime
     // if (playersSequence.length > Number(window.localStorage.getItem("maxScore")) || playersSequence.length > 0) {
-      if (playersSequence.length > Number(window.localStorage.getItem("maxScore")) && localStorage.getItem("")) {
+      if (playersSequence.length > Number(maxSteps_bestTime[0]) && Number(timeUsed) < Number(maxSteps_bestTime[1]) ) {
         console.log(`compare: \n  playersSequence.length: ${playersSequence.length}, getMaxScore: ${window.localStorage.getItem("maxScore")}`)
         console.log(`before-update maxScore: ${window.localStorage.getItem("maxScore")}`)
         window.localStorage.setItem("maxScore", `${playersSequence.length}`)
@@ -220,9 +223,6 @@ function logMax (match) {
         $("#score").text(window.localStorage.getItem("maxScore"))
         console.log(window.localStorage)
       }
-      // if () {
-
-      // }
     
 }
 
